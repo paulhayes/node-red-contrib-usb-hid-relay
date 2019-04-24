@@ -1,0 +1,55 @@
+
+<!-- Output node -->
+<script type="text/javascript">
+    RED.nodes.registerType('usb relay',{
+      category: 'output',
+      defaults: {
+        name: {value:""},
+		    path: {value:""}
+      },
+      color:"seagreen",
+      icon: "relay.png",
+      inputs:1,
+      outputs:0,
+      align: "right",
+      label: function() {
+          return this.name || "usb relay"
+      },
+      labelStyle: function() {
+          return this.name ? "node_label_italic":"";
+      },
+      oneditprepare: function() {
+        var id = this.id;
+        $.ajax({
+          url: "usbrelays",
+          success: function(data) {
+            var ports = JSON.parse(data);
+            $.each(ports, function (i, item) {
+              $('#node-input-usbrelay-port').append($('<option>', {value: i, text: item.path}));
+            });
+            $.ajax({
+              url: "usbrelays/" + id + "/current",
+              success: function(data) {
+                $('#node-input-usbrelay-port').val(JSON.parse(data));
+              }
+            })
+          }
+        })
+      },
+      oneditsave: function() {
+        //console.log($('#node-usbrelay-port').val());
+      }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="usb relay">
+    <div class="form-row node-input-name">
+         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+         <input type="text" id="node-input-name" placeholder="name">
+    </div>
+     <div class="form-row">
+         <label for="node-input-usbrelay-port"><i class="fa fa-random"></i> Port</label>
+         <select id="node-input-usbrelay-port">
+         </select>
+    </div>
+</script>
