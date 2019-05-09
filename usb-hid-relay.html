@@ -5,9 +5,9 @@
       category: 'output',
       defaults: {
         name: {value:""},
-		    path: {value:""}
+		    'usbrelayport': {value:""}
       },
-      color:"seagreen",
+      color:"lightseagreen",
       icon: "relay.png",
       inputs:1,
       outputs:0,
@@ -25,12 +25,16 @@
           success: function(data) {
             var ports = JSON.parse(data);
             $.each(ports, function (i, item) {
-              $('#node-input-usbrelay-port').append($('<option>', {value: i, text: item.path}));
+              let numRelays = parseInt(item.product.substr(-1)); 
+              for(let j=0;j<numRelays;j++){
+                let name = item.product+" "+item.serial+" "+(j+1);
+                $('#node-input-usbrelayport').append($('<option>', {value: item.serial+"_"+j, text: name}));
+              }
             });
             $.ajax({
               url: "usbrelays/" + id + "/current",
               success: function(data) {
-                $('#node-input-usbrelay-port').val(JSON.parse(data));
+                $('#node-input-usbrelayport').val(JSON.parse(data));
               }
             })
           }
@@ -48,8 +52,12 @@
          <input type="text" id="node-input-name" placeholder="name">
     </div>
      <div class="form-row">
-         <label for="node-input-usbrelay-port"><i class="fa fa-random"></i> Port</label>
-         <select id="node-input-usbrelay-port">
+         <label for="node-input-usbrelayport"><i class="fa fa-random"></i> Port</label>
+         <select id="node-input-usbrelayport">
          </select>
     </div>
+</script>
+
+<script type="text/x-red" data-help-name="usb relay">
+    TODO
 </script>
