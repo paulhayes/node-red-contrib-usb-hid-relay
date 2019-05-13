@@ -8,6 +8,8 @@ Models supported:
 * HW-343
 * Models with USB-Relay-1, USB-Relay-2 or USB-Relay-4 printed on the PCB
 
+![](HW-343.jpg)
+
 ### Installation
 todo
 
