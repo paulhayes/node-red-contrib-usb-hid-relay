@@ -11,16 +11,34 @@ module.exports = function(RED) {
         
     }
 
+    let relayList;
+    let relayListTime;
+
     let checkConnection = function(node){
+        if(node.isClosed){
+            return;
+        }
         let {serial,relayIndex} = node;
         if(typeof(serial)=="undefined"||typeof(relayIndex)=="undefined"){
             node.status({fill:"grey",shape:"dot",text:"not configured"});
         }
         else {
-            let allRelays = USBRelay.Relays;
-            let device = allRelays.find( (device)=>device.serial==serial );
+            if(!relayList || (Date.now()-relayListTime)>settings.connectionCheckTime){
+                relayList = USBRelay.Relays;
+                relayListTime = Date.now();
+            }
+            let device = relayList.find( (device)=>device.serial==serial );
+            let connectionSuccess = false;
             if(device){
-                node.relay = new USBRelay(device.path);            
+                try{
+                    node.relay = new USBRelay(device.path);            
+                    connectionSuccess = true;
+                }
+                catch(e){
+                    connectionSuccess = false;
+                }
+            }
+            if(connectionSuccess){
                 node.status({fill:"green",shape:"dot",text:"connected"});
             }
             else {
@@ -45,13 +63,27 @@ module.exports = function(RED) {
         
         node.on('input', function(msg) {
             //node.send(msg);
-            if(node.relay)
-                node.relay.setState(node.relayIndex+1, !!msg.payload );
+            if(node.relay){
+                try{
+                    node.relay.setState(node.relayIndex+1, !!msg.payload );
+                }
+                catch(e){
+                    delete node.relay;
+                }
+            }
+        });
+
+        node.on('close',function(removed,done){
+            if(node.relay){
+                delete node.relay;
+            }
+            node.isClosed = true;
+            done();
         });
 
         RED.httpAdmin.get('/usbrelays/' + node.id + '/current', function(req, res, next) {
-            if(node.relay){
-                let relayId = node.relay.getSerialNumber()+"_"+node.relayIndex;
+            if(node.serial && node.relayIndex){
+                let relayId = node.serial+"_"+node.relayIndex;
                 res.end(JSON.stringify(relayId));
             }
             else 
