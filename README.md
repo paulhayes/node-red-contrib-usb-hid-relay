@@ -6,6 +6,7 @@ Allows control of cheap hid relays in node js. HID relays do not show up as COM 
 Models supported:
 * HW-348
 * HW-343
+* HW-341
 * Models with USB-Relay-1, USB-Relay-2 or USB-Relay-4 printed on the PCB
 
 ![](HW-343.jpg)
