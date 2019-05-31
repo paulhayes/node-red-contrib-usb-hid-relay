@@ -19,8 +19,6 @@ module.exports = function(RED) {
             return;
         }
         let {serial,relayIndex} = node;
-        console.log("serial "+serial);
-        console.log("relay index "+relayIndex);
         if(typeof(serial)=="undefined"||typeof(relayIndex)=="undefined"){
             node.status({fill:"grey",shape:"dot",text:"not configured"});
         }
