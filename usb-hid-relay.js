@@ -19,6 +19,8 @@ module.exports = function(RED) {
             return;
         }
         let {serial,relayIndex} = node;
+        console.log("serial "+serial);
+        console.log("relay index "+relayIndex);
         if(typeof(serial)=="undefined"||typeof(relayIndex)=="undefined"){
             node.status({fill:"grey",shape:"dot",text:"not configured"});
         }
@@ -58,6 +60,9 @@ module.exports = function(RED) {
             node.relayIndex = parseInt(portInfo[1]);
             node.serial  = portInfo[0];
         }
+        else {
+            console.error("usb hid relay config not found");
+        }
         
         checkConnection(node);
         
@@ -82,7 +87,7 @@ module.exports = function(RED) {
         });
 
         RED.httpAdmin.get('/usbrelays/' + node.id + '/current', function(req, res, next) {
-            if(node.serial && node.relayIndex){
+            if(node.serial){
                 let relayId = node.serial+"_"+node.relayIndex;
                 res.end(JSON.stringify(relayId));
             }
