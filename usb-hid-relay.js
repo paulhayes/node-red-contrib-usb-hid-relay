@@ -62,7 +62,6 @@ module.exports = function(RED) {
         checkConnection(node);
         
         node.on('input', function(msg) {
-            //node.send(msg);
             if(node.relay){
                 try{
                     node.relay.setState(node.relayIndex+1, !!msg.payload );

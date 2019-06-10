@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "USBRelay": "git://github.com/paulhayes/USBRelay.git"
+    "usbrelay": "@josephdadams/usbrelay"
   },
   "node-red": {
     "nodes": {
