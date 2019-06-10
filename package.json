@@ -11,6 +11,7 @@
   "dependencies": {
     "USBRelay": "git://github.com/paulhayes/USBRelay.git"
   },
+  "keywords": [ "node-red" ],
   "node-red": {
     "nodes": {
       "usb-hid-relay": "usb-hid-relay.js"
