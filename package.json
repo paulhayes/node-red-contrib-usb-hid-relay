@@ -4,7 +4,7 @@
   "description": "Allows for control of USB HID relays in node red",
   "main": "usb-hid-relay.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"TODO add tests!!\" && exit 0"
   },
   "author": "",
   "license": "ISC",
