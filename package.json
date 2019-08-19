@@ -1,5 +1,5 @@
 {
-  "name": "red-contrib-usb-hid-relay",
+  "name": "node-red-contrib-usb-hid-relay",
   "version": "0.1.0",
   "description": "Allows for control of USB HID relays in node red",
   "main": "usb-hid-relay.js",
@@ -9,9 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@josephdadams/usbrelay": "^1.0.0",
     "usbrelay": "@josephdadams/usbrelay"
   },
-  "keywords": [ "node-red" ],
+  "keywords": [
+    "node-red"
+  ],
   "node-red": {
     "nodes": {
       "usb-hid-relay": "usb-hid-relay.js"
