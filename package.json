@@ -9,8 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@josephdadams/usbrelay": "^1.0.0",
-    "usbrelay": "@josephdadams/usbrelay"
+    "@josephdadams/usbrelay": "^1.0.0"
   },
   "keywords": [
     "node-red"
