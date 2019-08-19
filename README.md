@@ -1,7 +1,7 @@
 ## Node Red - USB HID Relay Nodes
 ![](usb%20hid%20relay%20screenshot%202.png)
 
-Allows control of cheap hid relays in node js. HID relays do not show up as COM ports. Instead they are HID devices, and have an internal serial number which can be used to differenciate them. These devices are far suppior to their Virtual COM port counterparts.
+Allows control of cheap hid relays in node red. HID relays do not show up as COM port devices. Instead they are HID devices, and have an internal serial number which can be used to differenciate them. These devices are far suppior to their Virtual COM port counterparts.
 
 Models supported:
 * HW-348
@@ -12,7 +12,7 @@ Models supported:
 ![](HW-343.jpg)
 
 ### Installation
-todo
+In node red, via libraries search for USB-HID-relay. Select and hit install. If this fails, please report to issue's on the projects GitHub page.
 
 ### Usage
 
