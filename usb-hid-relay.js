@@ -1,7 +1,7 @@
 module.exports = function(RED) {
     "use strict";
 
-    const USBRelay = require("@josephdadams/usbrelay"); 
+    const USBRelay = require("usbrelay"); 
 
     const settings = {
         connectionCheckTime : 5*1000
@@ -46,7 +46,7 @@ module.exports = function(RED) {
             }
         }       
 
-        setTimeout(checkConnection,settings.connectionCheckTime,node);
+        node.checkConnectionTimeout = setTimeout(checkConnection,settings.connectionCheckTime,node);
     }
     
     function RelayNode(config) {
@@ -76,6 +76,9 @@ module.exports = function(RED) {
         });
 
         node.on('close',function(removed,done){
+            if(node.checkConnectionTimeout){
+                clearTimeout(node.checkConnectionTimeout);
+            }
             if(node.relay){
                 delete node.relay;
             }

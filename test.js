@@ -1,5 +1,5 @@
 // the following should throw an error is there's an issue with the usbrelay library
-const USBRelay = require("@josephdadams/usbrelay"); 
+const USBRelay = require("usbrelay"); 
 
 relayList = USBRelay.Relays;
 
