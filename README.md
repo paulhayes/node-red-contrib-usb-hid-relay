@@ -13,11 +13,17 @@ Models supported:
 
 ### Installation
 
-#### Dependancy
-For linux you will need to make sure you install the libudev-dev package. For debian and raspbian this should be done with the following:
+In node red, via libraries search for USB-HID-relay. Select and hit install. If this fails, please report to issue's on the projects GitHub page.
+
+#### Linux Dependancies
+For linux you will need to make sure you install some additional libraries. For debian and raspbian this should be done with the following:
 ```sudo apt-get install libudev-dev librtlsdr-dev libusb-1.0-0-dev libpthread-stubs0-dev git```
 
-In node red, via libraries search for USB-HID-relay. Select and hit install. If this fails, please report to issue's on the projects GitHub page.
+You will also need to add udev rules. Create the following file ```/etc/udev/rules.d/50-hidrelay.rules```. This allows node-red the permissions to commuincate with the device directly.
+
+```UBSYSTEM=="input", GROUP="input", MODE="0666"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="05df", MODE:="666", GROUP="plugdev"
+KERNEL=="hidraw*", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="05df", MODE="0666", GROUP="plugdev"```
 
 ### Usage
 
