@@ -1,7 +1,7 @@
 module.exports = function(RED) {
     "use strict";
 
-    const USBRelay = require("usbrelay"); 
+    const USBRelay = require("USBRelay"); 
 
     const settings = {
         connectionCheckTime : 5*1000
