@@ -21,9 +21,11 @@ For linux you will need to make sure you install some additional libraries. For 
 
 You will also need to add udev rules. Create the following file ```/etc/udev/rules.d/50-hidrelay.rules```. This allows node-red the permissions to commuincate with the device directly.
 
-```UBSYSTEM=="input", GROUP="input", MODE="0666"
+```
+SUBSYSTEM=="input", GROUP="input", MODE="0666"
 SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="05df", MODE:="666", GROUP="plugdev"
-KERNEL=="hidraw*", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="05df", MODE="0666", GROUP="plugdev"```
+KERNEL=="hidraw*", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="05df", MODE="0666", GROUP="plugdev"
+```
 
 ### Usage
 
