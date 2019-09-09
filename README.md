@@ -12,6 +12,11 @@ Models supported:
 ![](HW-343.jpg)
 
 ### Installation
+
+#### Dependancy
+For linux you will need to make sure you install the libudev-dev package. For debian and raspbian this should be done with the following:
+```sudo apt-get install libudev-dev librtlsdr-dev libusb-1.0-0-dev libpthread-stubs0-dev```
+
 In node red, via libraries search for USB-HID-relay. Select and hit install. If this fails, please report to issue's on the projects GitHub page.
 
 ### Usage
