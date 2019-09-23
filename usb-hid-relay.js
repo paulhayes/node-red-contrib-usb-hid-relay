@@ -4,7 +4,7 @@ module.exports = function(RED) {
     const USBRelay = require("@josephdadams/usbrelay"); 
 
     const settings = {
-        usbHidRelayConnectionCheckTime : {
+        usbRelayConnectionCheckTime : {
             value:5*1000,
             exportable: true
         }
@@ -99,7 +99,7 @@ module.exports = function(RED) {
             return;
         });
     }
-    RED.nodes.registerType("usb relay",RelayNode, settings);
+    RED.nodes.registerType("usb relay",RelayNode, { settings: settings });
 
     RED.httpAdmin.get('/usbrelays', function(req, res, next) {        
         res.end(JSON.stringify(USBRelay.Relays));
