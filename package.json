@@ -11,6 +11,10 @@
   "dependencies": {
     "@josephdadams/usbrelay": "~1.0.2"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paulhayes/node-red-contrib-usb-hid-relay.git"
+  },
   "keywords": [
     "node-red"
   ],
