@@ -4,7 +4,10 @@ module.exports = function(RED) {
     const USBRelay = require("@josephdadams/usbrelay"); 
 
     const settings = {
-        connectionCheckTime : 5*1000
+        usbHidRelayConnectionCheckTime : {
+            value:5*1000,
+            exportable: true
+        }
     };
 
     let relayNodeName = function(relay){
@@ -23,7 +26,7 @@ module.exports = function(RED) {
             node.status({fill:"grey",shape:"dot",text:"not configured"});
         }
         else {
-            if(!relayList || (Date.now()-relayListTime)>settings.connectionCheckTime){
+            if(!relayList || (Date.now()-relayListTime)>RED.settings.usbHidRelayConnectionCheckTime){
                 relayList = USBRelay.Relays;
                 relayListTime = Date.now();
             }
@@ -46,7 +49,7 @@ module.exports = function(RED) {
             }
         }       
 
-        node.checkConnectionTimeout = setTimeout(checkConnection,settings.connectionCheckTime,node);
+        node.checkConnectionTimeout = setTimeout(checkConnection,RED.settings.usbHidRelayConnectionCheckTime,node);
     }
     
     function RelayNode(config) {
@@ -96,7 +99,7 @@ module.exports = function(RED) {
             return;
         });
     }
-    RED.nodes.registerType("usb relay",RelayNode);
+    RED.nodes.registerType("usb relay",RelayNode, settings);
 
     RED.httpAdmin.get('/usbrelays', function(req, res, next) {        
         res.end(JSON.stringify(USBRelay.Relays));
