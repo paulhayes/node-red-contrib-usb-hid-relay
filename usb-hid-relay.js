@@ -2,10 +2,10 @@ module.exports = function(RED) {
     "use strict";
 
     const USBRelay = require("@josephdadams/usbrelay"); 
-
-    const settings = {
-        usbRelayConnectionCheckTime : {
-            value:5*1000,
+    const defaultCheckInterval = 3*1000;
+    const exportSettings = {
+        usbHidRelayConnectionCheckInterval : {
+            value:defaultCheckInterval,
             exportable: true
         }
     };
@@ -18,15 +18,19 @@ module.exports = function(RED) {
     let relayListTime;
 
     let checkConnection = function(node){
+        let usbHidRelayConnectionCheckInterval = RED.settings.usbHidRelayConnectionCheckInterval || defaultCheckInterval;
+        
         if(node.isClosed){
             return;
         }
+
         let {serial,relayIndex} = node;
         if(typeof(serial)=="undefined"||typeof(relayIndex)=="undefined"){
             node.status({fill:"grey",shape:"dot",text:"not configured"});
         }
         else {
-            if(!relayList || (Date.now()-relayListTime)>RED.settings.usbHidRelayConnectionCheckTime){
+            if(!relayList || (Date.now()-relayListTime)>usbHidRelayConnectionCheckInterval){
+        
                 relayList = USBRelay.Relays;
                 relayListTime = Date.now();
             }
@@ -49,7 +53,7 @@ module.exports = function(RED) {
             }
         }       
 
-        node.checkConnectionTimeout = setTimeout(checkConnection,RED.settings.usbHidRelayConnectionCheckTime,node);
+        node.checkConnectionTimeout = setTimeout(checkConnection,usbHidRelayConnectionCheckInterval,node);
     }
     
     function RelayNode(config) {
@@ -99,7 +103,9 @@ module.exports = function(RED) {
             return;
         });
     }
-    RED.nodes.registerType("usb relay",RelayNode, { settings: settings });
+
+    console.log(exportSettings);
+    RED.nodes.registerType("usb relay",RelayNode, { settings: exportSettings });
 
     RED.httpAdmin.get('/usbrelays', function(req, res, next) {        
         res.end(JSON.stringify(USBRelay.Relays));
