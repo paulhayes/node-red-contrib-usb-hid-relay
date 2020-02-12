@@ -4,7 +4,7 @@ module.exports = function(RED) {
     const USBRelay = require("@josephdadams/usbrelay"); 
     const defaultCheckInterval = 3*1000;
     const exportSettings = {
-        usbHidRelayConnectionCheckInterval : {
+        usbRelayConnectionCheckInterval : {
             value:defaultCheckInterval,
             exportable: true
         }
@@ -18,7 +18,7 @@ module.exports = function(RED) {
     let relayListTime;
 
     let checkConnection = function(node){
-        let usbHidRelayConnectionCheckInterval = RED.settings.usbHidRelayConnectionCheckInterval || defaultCheckInterval;
+        let usbHidRelayConnectionCheckInterval = RED.settings.usbRelayConnectionCheckInterval || defaultCheckInterval;
         
         if(node.isClosed){
             return;
