@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@josephdadams/usbrelay": "~1.0.2"
+    "@josephdadams/usbrelay": "^1.0.3"
   },
   "repository": {
     "type": "git",
